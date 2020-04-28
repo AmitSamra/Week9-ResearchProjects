@@ -1,8 +1,8 @@
 setwd("/Users/asamra/dev/R_Project")
-library(readr)
 
 
 # Import CSV and create DF
+library(readr)
 nyc_crime <- read_csv("NYPD_Arrests_Data__Historic_.csv")
 View(nyc_crime)
 
@@ -43,4 +43,10 @@ View(nyc_crime2)
 nyc_crime2$ARREST_YEAR <- format(as.Date(nyc_crime2$ARREST_DATE, format = "%m/%d/%Y"),"%Y")
 nyc_crime2$ARREST_MONTH <- format(as.Date(nyc_crime2$ARREST_DATE, format = "%m/%d/%Y"),"%m")
 nyc_crime2$ARREST_DAY <- format(as.Date(nyc_crime2$ARREST_DATE, format = "%m/%d/%Y"),"%d")
+
+# Group all rows by year and count
+install.packages("plyr")
+library(plyr)
+count(nyc_crime2, "ARREST_YEAR")
+
 
