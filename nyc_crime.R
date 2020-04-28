@@ -30,3 +30,11 @@ nyc_crime2$ARREST_DATE
 
 # Check to see if date was changed
 summary(nyc_crime2)
+
+# Order ARREST_DATE by ascending
+nyc_crime2 <- nyc_crime2[order(nyc_crime2$ARREST_DATE), ]
+
+# Order ARREST_DATE by descending
+nyc_crime2 <- nyc_crime2[rev(order(nyc_crime2$ARREST_DATE)), ]
+
+View(nyc_crime2)
