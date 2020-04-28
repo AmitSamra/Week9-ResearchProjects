@@ -25,3 +25,8 @@ summary(nyc_crime2)
 # Coulmn in nyc_crime2 was replaced
 nyc_crime2$ARREST_DATE <- as.Date(nyc_crime2$ARREST_DATE, format = "%m/%d/%Y")
 
+# Check to see if date was changed
+nyc_crime2$ARREST_DATE
+
+# Check to see if date was changed
+summary(nyc_crime2)
