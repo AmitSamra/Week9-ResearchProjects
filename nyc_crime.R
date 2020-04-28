@@ -21,3 +21,7 @@ typeof(nyc_crime2)
 View(nyc_crime2)
 summary(nyc_crime2)
 
+# Change ARREST_DATE from character to date
+# Coulmn in nyc_crime2 was replaced
+nyc_crime2$ARREST_DATE <- as.Date(nyc_crime2$ARREST_DATE, format = "%m/%d/%Y")
+
