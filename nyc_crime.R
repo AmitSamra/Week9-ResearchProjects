@@ -1,8 +1,8 @@
 setwd("/Users/asamra/dev/R_Project")
+library(readr)
 
 
 # Import CSV and create DF
-library(readr)
 nyc_crime <- read_csv("NYPD_Arrests_Data__Historic_.csv")
 View(nyc_crime)
 
@@ -38,3 +38,9 @@ nyc_crime2 <- nyc_crime2[order(nyc_crime2$ARREST_DATE), ]
 nyc_crime2 <- nyc_crime2[rev(order(nyc_crime2$ARREST_DATE)), ]
 
 View(nyc_crime2)
+
+# Create new columns for Year Month Day
+nyc_crime2$ARREST_YEAR <- format(as.Date(nyc_crime2$ARREST_DATE, format = "%m/%d/%Y"),"%Y")
+nyc_crime2$ARREST_MONTH <- format(as.Date(nyc_crime2$ARREST_DATE, format = "%m/%d/%Y"),"%m")
+nyc_crime2$ARREST_DAY <- format(as.Date(nyc_crime2$ARREST_DATE, format = "%m/%d/%Y"),"%d")
+
