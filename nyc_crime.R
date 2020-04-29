@@ -5,6 +5,7 @@ sessionInfo()
 
 
 # Import CSV and create DF
+#install.packages("readr")
 library(readr)
 nyc_crime <- read_csv("NYPD_Arrests_Data__Historic_.csv")
 View(nyc_crime)
@@ -59,7 +60,7 @@ count(nyc_crime2, ARREST_YEAR)
 length(which(nyc_crime2$ARREST_YEAR == "2006"))
 
 # Count / Group rows by year and count using plyr
-install.packages("plyr")
+#install.packages("plyr")
 library(plyr)
 count(nyc_crime2, ARREST_YEAR)
 count(nyc_crime2, ARREST_MONTH)
@@ -72,7 +73,7 @@ View(df_2006_base)
 # Using dplyr, we can simplify the syntax
 
 # Filter using dplyr and create new df
-install.packages("dplyr")
+#install.packages("dplyr")
 library(dplyr)
 df_2006 <- filter(nyc_crime2, (ARREST_YEAR == 2006))
 View(df_2006)
@@ -81,5 +82,13 @@ View(df_2006)
 df_2006_drugs <- filter(nyc_crime2, (ARREST_YEAR == 2006 & KY_CD == 235))
 View(df_2006_drugs)
 
+# Install ggplot
+#install.packages("ggplot2")
+library("ggplot2")
 
-library(ggplot)
+nyc_crime2 %>% 
+  filter(KY_CD == 235) %>% 
+  group_by(ARREST_YEAR) %>% 
+  summarize(drug_arrests = n()) %>% 
+  ggplot(aes(x = ARREST_YEAR, y = drug_arrests)) +
+  geom_line()
