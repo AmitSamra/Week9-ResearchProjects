@@ -54,22 +54,32 @@ count(nyc_crime2)
 # Group all rows by year column we created and count
 count(nyc_crime2, ARREST_YEAR)
 
-# Group all rows by year and count using plyr
-install.packages("plyr")
-library(plyr)
-count(nyc_crime2, "ARREST_YEAR")
-count(nyc_crime2, "ARREST_MONTH")
-count(nyc_crime2, "ARREST_DAY")
-
-# Group all rows by condition
+# Count rows based on condition
+# Shows count of all arrests in 2006
 length(which(nyc_crime2$ARREST_YEAR == "2006"))
 
-# Group all rows by condition using dplyr
+# Count / Group rows by year and count using plyr
+install.packages("plyr")
+library(plyr)
+count(nyc_crime2, ARREST_YEAR)
+count(nyc_crime2, ARREST_MONTH)
+count(nyc_crime2, ARREST_DAY)
+
+# Filter using base R command
+df_2006_base <- nyc_crime2[nyc_crime2$ARREST_YEAR == 2006, ]
+View(df_2006_base)
+
+# Using dplyr, we can simplify the syntax
+
+# Filter using dplyr and create new df
 install.packages("dplyr")
 library(dplyr)
-subset1 <- filter(nyc_crime2, (ARREST_YEAR == 2006 & KY_CD == 235))
+df_2006 <- filter(nyc_crime2, (ARREST_YEAR == 2006))
+View(df_2006)
 
-View(subset1)
+# Filter all rows by condition using dplyr
+df_2006_drugs <- filter(nyc_crime2, (ARREST_YEAR == 2006 & KY_CD == 235))
+View(df_2006_drugs)
 
 
-
+library(ggplot)
