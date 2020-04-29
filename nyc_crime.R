@@ -1,4 +1,7 @@
+# Set wd
 setwd("/Users/asamra/dev/R_Project")
+# Shows program info
+sessionInfo()
 
 
 # Import CSV and create DF
@@ -13,13 +16,14 @@ summary(nyc_crime)
 # Save as new DF
 nyc_crime2 <- na.omit(nyc_crime)
 
-# Shows object type
-typeof(nyc_crime)
-typeof(nyc_crime2)
-
 # Shows new DF in new tab
 View(nyc_crime2)
 summary(nyc_crime2)
+
+# Shows object type
+# Note a df is a list
+typeof(nyc_crime)
+typeof(nyc_crime2)
 
 # Change ARREST_DATE from character to date
 # Coulmn in nyc_crime2 was replaced
@@ -32,21 +36,40 @@ nyc_crime2$ARREST_DATE
 summary(nyc_crime2)
 
 # Order ARREST_DATE by ascending
-nyc_crime2 <- nyc_crime2[order(nyc_crime2$ARREST_DATE), ]
+nyc_crime2 <- nyc_crime2[order(nyc_crime2$ARREST_DATE),]
 
 # Order ARREST_DATE by descending
-nyc_crime2 <- nyc_crime2[rev(order(nyc_crime2$ARREST_DATE)), ]
-
+nyc_crime2 <- nyc_crime2[rev(order(nyc_crime2$ARREST_DATE)),]
 View(nyc_crime2)
 
 # Create new columns for Year Month Day
 nyc_crime2$ARREST_YEAR <- format(as.Date(nyc_crime2$ARREST_DATE, format = "%m/%d/%Y"),"%Y")
 nyc_crime2$ARREST_MONTH <- format(as.Date(nyc_crime2$ARREST_DATE, format = "%m/%d/%Y"),"%m")
 nyc_crime2$ARREST_DAY <- format(as.Date(nyc_crime2$ARREST_DATE, format = "%m/%d/%Y"),"%d")
+View(nyc_crime2)
 
-# Group all rows by year and count
+# Count all rows
+count(nyc_crime2)
+
+# Group all rows by year column we created and count
+count(nyc_crime2, ARREST_YEAR)
+
+# Group all rows by year and count using plyr
 install.packages("plyr")
 library(plyr)
 count(nyc_crime2, "ARREST_YEAR")
+count(nyc_crime2, "ARREST_MONTH")
+count(nyc_crime2, "ARREST_DAY")
+
+# Group all rows by condition
+length(which(nyc_crime2$ARREST_YEAR == "2006"))
+
+# Group all rows by condition using dplyr
+install.packages("dplyr")
+library(dplyr)
+subset1 <- filter(nyc_crime2, (ARREST_YEAR == 2006 & KY_CD == 235))
+
+View(subset1)
+
 
 
