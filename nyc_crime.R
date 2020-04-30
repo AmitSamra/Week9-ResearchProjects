@@ -97,8 +97,8 @@ nyc_crime2 %>%
 nyc_crime2 %>% 
   #filter(KY_CD == 235) %>% 
   group_by(ARREST_YEAR) %>% 
-  summarize(drug_arrests = n()) %>% 
-  ggplot( aes ( x = ARREST_YEAR, y = drug_arrests, group = 1 ) ) + geom_line()
+  summarize(total_arrests = n()) %>% 
+  ggplot( aes ( x = ARREST_YEAR, y = total_arrests, group = 1 ) ) + geom_line()
 
 # Plot total drug arrests by year
 nyc_crime2 %>% 
@@ -130,11 +130,29 @@ crimes_by_OFNS_DESC <- nyc_crime2 %>%
 # order top 10 crimes desc
 top10_name <- top_n(crimes_by_OFNS_DESC, 10, total_arrests) %>% arrange(desc(total_arrests))
 
-# Plot total arrrests by month
+# Plot total arrrests of top crimes by month
 top10_name %>% 
   group_by(OFNS_DESC) %>% 
   #summarize(total_arrests = n()) %>% 
   ggplot( aes ( x = OFNS_DESC, y = total_arrests, group = 1) ) + 
   geom_bar(stat = 'identity', fill = 'steelblue') +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Filter crimes for two years and save as df
+arrests_2018_2017 <- nyc_crime2 %>% 
+  filter(ARREST_YEAR %in% c(2018, 2017)) %>% 
+  group_by(ARREST_MONTH, ARREST_YEAR) %>% 
+  summarize(total_arrests = n())
+
+arrests_2018_2017
+
+# Plot filter for two years
+nyc_crime2 %>% 
+  filter(ARREST_YEAR %in% c(2018, 2017)) %>% 
+  group_by(ARREST_MONTH, ARREST_YEAR) %>% 
+  summarize(total_arrests = n()) #%>% 
+  ggplot( aes ( x = ARREST_MONTH, y = total_arrests, group = ARREST_YEAR, color = ARREST_YEAR) ) + geom_line()
+
+  
+
 
