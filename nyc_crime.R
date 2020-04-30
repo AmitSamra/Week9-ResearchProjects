@@ -86,9 +86,18 @@ View(df_2006_drugs)
 #install.packages("ggplot2")
 library("ggplot2")
 
+# Plot total drug arrests for all years
 nyc_crime2 %>% 
   filter(KY_CD == 235) %>% 
   group_by(ARREST_YEAR) %>% 
   summarize(drug_arrests = n()) %>% 
-  ggplot(aes(x = ARREST_YEAR, y = drug_arrests), group = 1) +
-  geom_line()
+  ggplot( aes ( x = ARREST_YEAR, y = drug_arrests, group = 1 ) ) + geom_line()
+
+# Plot total arrests for all years
+nyc_crime2 %>% 
+  #filter(KY_CD == 235) %>% 
+  group_by(ARREST_YEAR) %>% 
+  summarize(drug_arrests = n()) %>% 
+  ggplot( aes ( x = ARREST_YEAR, y = drug_arrests, group = 1 ) ) + geom_line()
+
+  
