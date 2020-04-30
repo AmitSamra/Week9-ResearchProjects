@@ -90,5 +90,5 @@ nyc_crime2 %>%
   filter(KY_CD == 235) %>% 
   group_by(ARREST_YEAR) %>% 
   summarize(drug_arrests = n()) %>% 
-  ggplot(aes(x = ARREST_YEAR, y = drug_arrests)) +
+  ggplot(aes(x = ARREST_YEAR, y = drug_arrests), group = 1) +
   geom_line()
