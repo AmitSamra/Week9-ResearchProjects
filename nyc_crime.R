@@ -108,3 +108,33 @@ nyc_crime2 %>%
   ggplot( aes ( x = ARREST_YEAR, y = drug_arrests, group = 1) ) + 
   geom_bar(stat = 'identity', fill = 'steelblue')
 
+# Plot total arrrests by borough
+nyc_crime2 %>% 
+  group_by(ARREST_BORO) %>% 
+  summarize(total_arrests = n()) %>% 
+  ggplot( aes ( x = ARREST_BORO, y = total_arrests, group = 1) ) + 
+  geom_bar(stat = 'identity', fill = 'steelblue')
+
+# Plot total arrrests by month
+nyc_crime2 %>% 
+  group_by(ARREST_MONTH) %>% 
+  summarize(total_arrests = n()) %>% 
+  ggplot( aes ( x = ARREST_MONTH, y = total_arrests, group = 1) ) + 
+  geom_bar(stat = 'identity', fill = 'steelblue')
+
+# Top 10 crimes by name
+crimes_by_OFNS_DESC <- nyc_crime2 %>%
+  #filter(ARREST_YEAR == 2018) %>% 
+  group_by(OFNS_DESC) %>% 
+  summarize(total_arrests = n())
+# order top 10 crimes desc
+top10_name <- top_n(crimes_by_OFNS_DESC, 10, total_arrests) %>% arrange(desc(total_arrests))
+
+# Plot total arrrests by month
+top10_name %>% 
+  group_by(OFNS_DESC) %>% 
+  #summarize(total_arrests = n()) %>% 
+  ggplot( aes ( x = OFNS_DESC, y = total_arrests, group = 1) ) + 
+  geom_bar(stat = 'identity', fill = 'steelblue') +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
