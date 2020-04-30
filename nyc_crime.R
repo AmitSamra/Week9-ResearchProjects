@@ -153,6 +153,33 @@ nyc_crime2 %>%
   summarize(total_arrests = n()) #%>% 
   ggplot( aes ( x = ARREST_MONTH, y = total_arrests, group = ARREST_YEAR, color = ARREST_YEAR) ) + geom_line()
 
-  
+# Create subset for 2018 grouped by month
+arrests_2018 <- nyc_crime2 %>% 
+  filter(ARREST_YEAR %in% c(2018)) %>% 
+  group_by(ARREST_MONTH) %>% 
+  summarize('2018' = n())
 
+# Create subset for 2017 grouped by month
+arrests_2017 <- nyc_crime2 %>% 
+  filter(ARREST_YEAR %in% c(2017)) %>% 
+  group_by(ARREST_MONTH) %>% 
+  summarize('2017' = n())
+
+# Create subset for 2016 grouped by month
+arrests_2016 <- nyc_crime2 %>% 
+  filter(ARREST_YEAR %in% c(2016)) %>% 
+  group_by(ARREST_MONTH) %>% 
+  summarize('2016' = n())
+
+# Merge 2018 and 2017
+arrests_18_17 <- merge(arrest_year_2017, arrest_year_2018)
+arrests_18_17
+
+# Merge 2018_2017 and 2016
+arrests_18_17_16 <- merge(arrest_year_17_18, arrest_year_2016)
+arrests_18_17_16
+
+# Drop month column
+arrests_3col <- select(arrests_18_17_16, -1)
+arrests_3col
 
