@@ -100,6 +100,12 @@ nyc_crime2 %>%
   summarize(total_arrests = n()) %>% 
   ggplot( aes ( x = ARREST_YEAR, y = total_arrests, group = 1 ) ) + geom_line()
 
+# Plot total arrests with line for each year
+nyc_crime2 %>% 
+  group_by(ARREST_YEAR, ARREST_MONTH) %>% 
+  summarize(total_arrests = n()) %>% 
+  ggplot( aes ( x = ARREST_MONTH, y = total_arrests, group = ARREST_YEAR, color = ARREST_YEAR) ) + geom_line()
+
 # Plot total drug arrests by year
 nyc_crime2 %>% 
   filter(KY_CD == 235) %>% 
@@ -207,4 +213,12 @@ all_age <- unique( nyc_crime2$AGE_GROUP )
 length(all_age)
 all_age
 # Above shows 91 age groups.
+
+# Fix plot above by filtering by age groups
+nyc_crime2 %>% 
+  filter(AGE_GROUP %in% c("25-44","65+","45-64","18-24","<18")) %>%
+  group_by(AGE_GROUP) %>% 
+  summarize(total_arrests = n()) %>% 
+  ggplot( aes ( x = AGE_GROUP, y = total_arrests) ) + 
+  geom_bar(stat = 'identity', fill = 'steelblue')
 
