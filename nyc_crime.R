@@ -183,3 +183,9 @@ arrests_18_17_16
 arrests_3col <- select(arrests_18_17_16, -1)
 arrests_3col
 
+# Compute correlation matrix for joined df
+cor(arrest_year_3col)
+
+# Compute correlation for manually - only for two columns
+cor(arrests_2018[2], arrests_2017[2])
+
