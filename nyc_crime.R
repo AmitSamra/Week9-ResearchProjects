@@ -190,6 +190,7 @@ cor(arrest_year_3col)
 cor(arrests_2017[2], arrests_2018[2])
 
 library(corrplot)
+# Plot correlations 
 corrplot(cor(arrest_year_3col), method='circle')
 
 # Plot total arrrests by age - note weird result unless we filter by year
@@ -199,4 +200,11 @@ nyc_crime2 %>%
   summarize(total_arrests = n()) %>% 
   ggplot( aes ( x = AGE_GROUP, y = total_arrests) ) + 
   geom_bar(stat = 'identity', fill = 'steelblue')
+
+# Plot above shows many differnt age groups. Why?
+# Because there are many age groups.
+all_age <- unique( nyc_crime2$AGE_GROUP )
+length(all_age)
+all_age
+# Above shows 91 age groups.
 
