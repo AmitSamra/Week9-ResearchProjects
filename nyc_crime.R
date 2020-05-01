@@ -244,3 +244,20 @@ nyc_crime2 %>%
   summarize(total_arrests = n()) %>% 
   ggplot(aes(x=ARREST_YEAR, y = total_arrests, group = AGE_GROUP, color = AGE_GROUP)) + geom_line()
 
+# Plot arrests by gender
+nyc_crime2 %>% 
+  group_by(PERP_SEX) %>% 
+  summarize(total_arrests = n()) %>%
+  ggplot(aes(x = PERP_SEX, y = total_arrests)) +  
+  geom_bar(stat = 'identity', fill = 'steelblue') +
+  theme(axis.text.x = element_text(angle = 0, hjust = 1))
+
+# Pie plot arrests by gender
+nyc_crime2 %>% 
+  group_by(PERP_SEX) %>% 
+  summarize(total_arrests = n()) %>%
+  ggplot(aes(x = "", y = total_arrests, fill=PERP_SEX)) +  
+  geom_bar(stat = 'identity', width=1) +
+  coord_polar('y', start=0) +
+  theme_void()
+
