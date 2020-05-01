@@ -237,3 +237,10 @@ nyc_crime2 %>%
   geom_bar(stat = 'identity', fill = 'steelblue') +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+# Plot total arrests by age 
+nyc_crime2 %>% 
+  filter(AGE_GROUP %in% c("25-44","65+","45-64","18-24","<18")) %>%
+  group_by(ARREST_YEAR, AGE_GROUP) %>% 
+  summarize(total_arrests = n()) %>% 
+  ggplot(aes(x=ARREST_YEAR, y = total_arrests, group = AGE_GROUP, color = AGE_GROUP)) + geom_line()
+
