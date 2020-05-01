@@ -192,4 +192,11 @@ cor(arrests_2017[2], arrests_2018[2])
 library(corrplot)
 corrplot(cor(arrest_year_3col), method='circle')
 
+# Plot total arrrests by age - note weird result unless we filter by year
+nyc_crime2 %>% 
+  #filter(ARREST_YEAR %in% c(2018, 2017, 2016)) %>%
+  group_by(AGE_GROUP, ARREST_YEAR) %>% 
+  summarize(total_arrests = n()) %>% 
+  ggplot( aes ( x = AGE_GROUP, y = total_arrests) ) + 
+  geom_bar(stat = 'identity', fill = 'steelblue')
 
