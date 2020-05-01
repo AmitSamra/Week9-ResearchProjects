@@ -171,21 +171,25 @@ arrests_2016 <- nyc_crime2 %>%
   group_by(ARREST_MONTH) %>% 
   summarize('2016' = n())
 
-# Merge 2018 and 2017
-arrests_18_17 <- merge(arrest_year_2017, arrest_year_2018)
-arrests_18_17
+# Merge 2017 and 2018
+arrests_17_18 <- merge(arrest_year_2017, arrest_year_2018)
+arrests_17_18
 
-# Merge 2018_2017 and 2016
-arrests_18_17_16 <- merge(arrest_year_17_18, arrest_year_2016)
-arrests_18_17_16
+# Merge 2016 and 2018_2017 
+arrests_16_17_18 <- merge(arrest_year_2016, arrest_year_17_18)
+arrests_16_17_18
 
 # Drop month column
-arrests_3col <- select(arrests_18_17_16, -1)
+arrests_3col <- select(arrests_16_17_18, -1)
 arrests_3col
 
 # Compute correlation matrix for joined df
 cor(arrest_year_3col)
 
-# Compute correlation for manually - only for two columns
-cor(arrests_2018[2], arrests_2017[2])
+# Compute correlation manually for two columns only
+cor(arrests_2017[2], arrests_2018[2])
+
+library(corrplot)
+corrplot(cor(arrest_year_3col), method='circle')
+
 
